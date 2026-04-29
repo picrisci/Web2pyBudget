@@ -1,8 +1,53 @@
 {{extend 'layout.html'}}
-<h1>Budget ERP (stile Odoo)</h1>
-<p>App demo per gestione budget, ordini e fatture.</p>
-<ul>
-{{for label, link in menu:}}
-  <li><a href="{{=link}}">{{=label}}</a></li>
+
+<style>
+.dashboard-header { margin-bottom: 1.2rem; }
+.dashboard-title { margin: 0; font-size: 2rem; color: #1f2937; }
+.dashboard-subtitle { margin-top: .3rem; color: #4b5563; }
+.section-title { margin: 1.6rem 0 .8rem; color: #111827; }
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+.module-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #fff;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.module-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.09); }
+.module-icon { font-size: 1.35rem; }
+.module-name { margin: .45rem 0; font-size: 1.1rem; }
+.module-description { color: #4b5563; font-size: .95rem; min-height: 2.4em; }
+.btn-open {
+  display: inline-block;
+  margin-top: 8px;
+  background: #2563eb;
+  color: #fff !important;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-weight: 600;
+}
+</style>
+
+<div class="dashboard-header">
+  <h1 class="dashboard-title">Budget ERP</h1>
+  <p class="dashboard-subtitle">Navigazione per aree funzionali con schermate dedicate.</p>
+</div>
+
+{{for section in sections:}}
+  <h2 class="section-title">{{=section['name']}}</h2>
+  <div class="cards-grid">
+    {{for card in section['cards']:}}
+      <div class="module-card">
+        <div class="module-icon">{{=card['icon']}} {{=card['label']}}</div>
+        <div class="module-description">{{=card['description']}}</div>
+        <a class="btn-open" href="{{=card['link']}}">Apri schermata</a>
+      </div>
+    {{pass}}
+  </div>
 {{pass}}
-</ul>

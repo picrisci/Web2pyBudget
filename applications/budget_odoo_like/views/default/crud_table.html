@@ -1,3 +1,61 @@
 {{extend 'layout.html'}}
-<h2>Gestione: {{=table}}</h2>
-{{=grid}}
+
+<style>
+.screen-header {
+  background: linear-gradient(120deg, #eff6ff, #f5f3ff);
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.screen-title { margin: 0; color: #1f2937; }
+.screen-description { margin: 6px 0 0; color: #4b5563; }
+.toolbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.toolbar a {
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  color: #1f2937;
+  background: #fff;
+}
+.toolbar a.primary { background: #2563eb; color: #fff; border-color: #2563eb; }
+.quick-links { margin-top: 10px; font-size: .95rem; color: #374151; }
+.quick-links a { margin-right: 10px; }
+.grid-wrap {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  padding: 8px;
+}
+</style>
+
+<div class="screen-header">
+  <h2 class="screen-title">{{=icon}} {{=title}}</h2>
+  <p class="screen-description">{{=description}}</p>
+  <div class="toolbar">
+    <a href="{{=URL('index')}}">← Dashboard</a>
+    {{if prev_module:}}
+      <a href="{{=URL('crud_table', args=[prev_module['key']])}}">← {{=prev_module['label']}}</a>
+    {{pass}}
+    {{if next_module:}}
+      <a href="{{=URL('crud_table', args=[next_module['key']])}}">{{=next_module['label']}} →</a>
+    {{pass}}
+    <a class="primary" href="{{=URL('crud_table', args=[table])}}">Ricarica schermata</a>
+  </div>
+  <div class="quick-links">
+    Vai rapido:
+    {{for module in modules:}}
+      <a href="{{=URL('crud_table', args=[module['key']])}}">{{=module['label']}}</a>
+    {{pass}}
+  </div>
+</div>
+
+<div class="grid-wrap">
+  {{=grid}}
+</div>
