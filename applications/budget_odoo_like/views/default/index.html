@@ -1,0 +1,8 @@
+{{extend 'layout.html'}}
+<h1>Budget ERP (stile Odoo)</h1>
+<p>App demo per gestione budget, ordini e fatture.</p>
+<ul>
+{{for label, link in menu:}}
+  <li><a href="{{=link}}">{{=label}}</a></li>
+{{pass}}
+</ul>
